@@ -27,7 +27,7 @@ public class PGCTerrain : MonoBehaviour
     };
 
     [SerializeField]
-    private bool AutoUpdateOnChange = false;
+    private bool AutoUpdateOnAnyChange = false;
 
     private Terrain _currentTerrain;
 
@@ -42,7 +42,7 @@ public class PGCTerrain : MonoBehaviour
 
     void Update()
     {
-        if (!_hasChanged || AutoUpdateOnChange)
+        if (!_hasChanged || AutoUpdateOnAnyChange)
         {
             _currentTerrain.terrainData = GenerateTerrainData(_currentTerrain.terrainData);
         }

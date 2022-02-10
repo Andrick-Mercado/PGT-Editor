@@ -158,8 +158,8 @@ MonoBehaviour:
   _width: 128
   _depth: 20
   scale: 20
-  SelectAlgorithm: 0
-  AutoUpdateOnChange: 0
+  SelectAlgorithm: 2
+  AutoUpdateOnAnyChange: 0
 --- !u!154 &649111870
 TerrainCollider:
   m_ObjectHideFlags: 0
