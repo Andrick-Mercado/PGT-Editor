@@ -35,11 +35,28 @@ public class PGCTerrainEditor : Editor
         serializedObject.Update();
 
         EditorGUILayout.PropertyField(Height);
+        EditorGUILayout.LabelField("Height of terrain");
+        EditorGUILayout.Separator();
+
         EditorGUILayout.PropertyField(Width);
+        EditorGUILayout.LabelField("Width of terrain");
+        EditorGUILayout.Space();
+
         EditorGUILayout.PropertyField(Depth);
+        EditorGUILayout.LabelField("Depth of terrain");
+        EditorGUILayout.Space();
+
         EditorGUILayout.PropertyField(Scale);
+        EditorGUILayout.LabelField("Frequency of Terrain");
+        EditorGUILayout.Space();
+
         EditorGUILayout.PropertyField(SelectAlgorithm);
+        EditorGUILayout.LabelField("Which algorithm to use for the terrain");
+        EditorGUILayout.Space();
+
         EditorGUILayout.PropertyField(AutoUpdateOnAnyChange);
+        EditorGUILayout.LabelField("Calculate every change above (may slow down performance)");
+        EditorGUILayout.Space();
 
         serializedObject.ApplyModifiedProperties();
     }
