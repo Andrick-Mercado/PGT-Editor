@@ -48,7 +48,6 @@ public class PGCTerrain : MonoBehaviour
         }
         else if (!SelectAlgorithm.ToString().Equals(_previous))
         {
-            Debug.Log("has runned?");
             _hasChanged = false;
         }
         
