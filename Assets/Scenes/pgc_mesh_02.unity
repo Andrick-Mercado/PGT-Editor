@@ -154,10 +154,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3632376dbee2a440b7919d78146cf2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _height: 128
-  _width: 128
+  _height: 1
+  _width: 32
   _depth: 20
-  scale: 20
+  scale: 1
   SelectAlgorithm: 2
   AutoUpdateOnAnyChange: 0
 --- !u!154 &649111870

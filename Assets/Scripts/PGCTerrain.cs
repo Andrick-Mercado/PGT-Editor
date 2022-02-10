@@ -5,10 +5,10 @@ using UnityEngine;
 public class PGCTerrain : MonoBehaviour
 {
     [SerializeField]
-    private int _height = 128;
+    private int _height = 1;
 
     [SerializeField]
-    private int _width = 128;
+    private int _width = 1;
 
     [SerializeField]
     private int _depth = 20;
@@ -34,6 +34,8 @@ public class PGCTerrain : MonoBehaviour
     private bool _hasChanged;
     private string _previous;
 
+    private int heightCopy;
+
     private void Start()
     {
         _currentTerrain = GetComponent<Terrain>();
@@ -42,8 +44,11 @@ public class PGCTerrain : MonoBehaviour
 
     void Update()
     {
+        
+
         if (!_hasChanged || AutoUpdateOnAnyChange)
         {
+            updateValues();
             _currentTerrain.terrainData = GenerateTerrainData(_currentTerrain.terrainData);
         }
         else if (!SelectAlgorithm.ToString().Equals(_previous))
@@ -57,20 +62,20 @@ public class PGCTerrain : MonoBehaviour
     {
         terrainData.heightmapResolution = _width + 1;
 
-        terrainData.size = new Vector3(_width, _depth, _height );
+        terrainData.size = new Vector3(_width, _depth, heightCopy);
 
-        terrainData.SetHeights(0,0,GenerateHeights());
+        terrainData.SetHeights(0, 0, GenerateHeights());
 
         return terrainData;
     }
 
     float[,] GenerateHeights()
     {
-        float[,] heights = new float[_width, _height];
+        float[,] heights = new float[_width, heightCopy];
 
         for(int x = 0; x< _width; x++)
         {
-            for (int y = 0; y < _height; y++)
+            for (int y = 0; y < heightCopy; y++)
             {
                 heights[x, y] = CalculateHeight(x, y);
             }
@@ -81,7 +86,7 @@ public class PGCTerrain : MonoBehaviour
     float CalculateHeight (int x, int y)
     {
         float xCoord = (float) x / _width * scale;
-        float yCoord = (float) y / _height * scale;
+        float yCoord = (float) y / heightCopy * scale;
 
         string currentString = SelectAlgorithm.ToString();
 
@@ -105,5 +110,17 @@ public class PGCTerrain : MonoBehaviour
         }
         else//not possible in current setup
             return xCoord + yCoord;
+    }
+
+    void updateValues()
+    {
+        if (_height == 0)
+        {
+            heightCopy = 0;
+            _width = heightCopy;
+            return;
+        }
+        heightCopy = (int) Mathf.Pow(2f, _height+4);//  (_height * 32);
+        _width = heightCopy;
     }
 }

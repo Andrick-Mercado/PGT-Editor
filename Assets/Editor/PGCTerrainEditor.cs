@@ -6,7 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(PGCTerrain))]
 public class PGCTerrainEditor : Editor
 {
-    SerializedProperty Height;
+    SerializedProperty SizeOfTerrain;
 
     SerializedProperty Width;
 
@@ -22,7 +22,7 @@ public class PGCTerrainEditor : Editor
 
     void OnEnable()
     {
-        Height = serializedObject.FindProperty("_height");
+        SizeOfTerrain = serializedObject.FindProperty("_height");
         Width = serializedObject.FindProperty("_width");
         Depth = serializedObject.FindProperty("_depth");
         Scale = serializedObject.FindProperty("scale");
@@ -34,19 +34,22 @@ public class PGCTerrainEditor : Editor
     {
         serializedObject.Update();
 
-        EditorGUILayout.PropertyField(Height);
-        EditorGUILayout.LabelField("Height of terrain");
-        EditorGUILayout.Separator();
-
-        EditorGUILayout.PropertyField(Width);
-        EditorGUILayout.LabelField("Width of terrain");
+        
+        //EditorGUILayout.PropertyField(Height);
+        EditorGUILayout.IntSlider(SizeOfTerrain, 0, 10);
+        EditorGUILayout.LabelField("Size of terrain HxW: " + Width.intValue + "x"+ Width.intValue);
         EditorGUILayout.Space();
 
-        EditorGUILayout.PropertyField(Depth);
+        //EditorGUILayout.PropertyField(Width);
+        //EditorGUILayout.LabelField("Width of terrain");
+        //EditorGUILayout.Space();
+
+        //EditorGUILayout.PropertyField(Depth);
+        EditorGUILayout.IntSlider(Depth, -20, 20);
         EditorGUILayout.LabelField("Depth of terrain");
         EditorGUILayout.Space();
 
-        EditorGUILayout.PropertyField(Scale);
+        EditorGUILayout.Slider(Scale, 0f, 100f);
         EditorGUILayout.LabelField("Frequency of Terrain");
         EditorGUILayout.Space();
 
