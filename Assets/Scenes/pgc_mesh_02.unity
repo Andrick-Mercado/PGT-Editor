@@ -151,15 +151,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 649111868}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3632376dbee2a440b7919d78146cf2f, type: 3}
+  m_Script: {fileID: 11500000, guid: 9790e74de1c0fee44a31910860eeaf19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _height: 1
-  _width: 32
+  _size: 1
+  _width: 1
   _depth: 20
-  scale: 1
-  SelectAlgorithm: 2
-  AutoUpdateOnAnyChange: 0
+  frequency: 10
+  SelectAlgorithm: 0
 --- !u!154 &649111870
 TerrainCollider:
   m_ObjectHideFlags: 0
