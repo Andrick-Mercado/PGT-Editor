@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEditor;
+using Random = UnityEngine.Random;
 
-//[ExecuteInEditMode]
+[ExecuteInEditMode]
 public class PGCTerrain : MonoBehaviour
 {
     [SerializeField]
@@ -32,16 +33,21 @@ public class PGCTerrain : MonoBehaviour
     //private bool AutoUpdateOnAnyChange = false;
 
     private Terrain _currentTerrain;
+    private TerrainData _currentTerrainData;
 
     //private bool _hasChanged;
     //private string _previous;
 
     private int heightCopy;
+
+    public int randomHeightRange = 0;
     
     void OnEnable()
     {
         _currentTerrain = GetComponent<Terrain>();
-        _currentTerrain.terrainData = GenerateTerrainData(_currentTerrain.terrainData);
+        _currentTerrainData = Terrain.activeTerrain.terrainData;
+        //_currentTerrain.terrainData = GenerateTerrainData(_currentTerrain.terrainData);
+
     }
 
     //void Update()
@@ -60,15 +66,19 @@ public class PGCTerrain : MonoBehaviour
         
     //}
 
-    TerrainData GenerateTerrainData(TerrainData terrainData)
+    public void GenerateTerrainData(bool isRandom)
     {
-        terrainData.heightmapResolution = _width + 1;
-
-        terrainData.size = new Vector3(_width, _depth, heightCopy);
-
-        terrainData.SetHeights(0, 0, GenerateHeights());
-
-        return terrainData;
+        if(isRandom)
+        {
+            _currentTerrainData.SetHeights(0, 0, GenerateRandomHeights());
+        }
+        else
+        {
+            updateValues();
+            _currentTerrainData.heightmapResolution = _width + 1;
+            _currentTerrainData.size = new Vector3(_width, _depth, heightCopy);
+            _currentTerrainData.SetHeights(0, 0, GenerateHeights());
+        }
     }
 
     float[,] GenerateHeights()
@@ -90,28 +100,43 @@ public class PGCTerrain : MonoBehaviour
         float xCoord = (float) x / _width * frequency;
         float yCoord = (float) y / heightCopy * frequency;
 
-        //string currentString = SelectAlgorithm.ToString();
+        string currentString = SelectAlgorithm.ToString();
 
-        //if (currentString.Equals("Sin"))
-        //{
-        //    _hasChanged = true;
-        //    _previous = "Sin";
-        //    return Mathf.Sin(xCoord) + Mathf.Sin(yCoord);
-        //}
-        //else if (currentString.Equals("Cos"))
-        //{
-        //    _hasChanged = true;
-        //    _previous = "Cos";
-        //    return Mathf.Cos(xCoord) * Mathf.Cos(yCoord);
-        //}
-        //else if (currentString.Equals("Perlin"))
-        //{
-        //    _hasChanged = true;
-        //    _previous = "Perlin";
-        //    return Mathf.PerlinNoise(xCoord, yCoord);
-        //}
-        //else//not possible in current setup
-            return xCoord + yCoord;
+        if (currentString.Equals("Sin"))
+        {
+            return Mathf.Sin(xCoord) + Mathf.Sin(yCoord);
+        }
+        else if (currentString.Equals("Cos"))
+        {
+            return Mathf.Cos(xCoord) * Mathf.Cos(yCoord);
+        }
+        else//default perlin
+        {
+            return Mathf.PerlinNoise(xCoord, yCoord);
+        }
+         
+    }
+
+    float[,] GenerateRandomHeights()
+    {
+        float[,] heights = new float[_width, heightCopy];
+
+        for (int x = 0; x < _width; x++)
+        {
+            for (int y = 0; y < heightCopy; y++)
+            {
+                heights[x, y] = CalculateRandomHeight(x,y);
+            }
+        }
+        return heights;
+    }
+
+    float CalculateRandomHeight(int x, int y)
+    {
+        float xCoord = (float)x / _width * frequency;
+        float yCoord = (float)y / heightCopy * frequency;
+
+        return UnityEngine.Random.Range(0f, randomHeightRange*( xCoord + yCoord ));
     }
 
     void updateValues()
