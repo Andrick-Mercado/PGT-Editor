@@ -154,11 +154,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9790e74de1c0fee44a31910860eeaf19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _size: 1
-  _width: 1
-  _depth: 20
+  _size: 3
+  _width: 128
+  _depth: 10
   frequency: 10
-  SelectAlgorithm: 0
+  SelectAlgorithm: 2
+  randomHeightRange: 10
 --- !u!154 &649111870
 TerrainCollider:
   m_ObjectHideFlags: 0

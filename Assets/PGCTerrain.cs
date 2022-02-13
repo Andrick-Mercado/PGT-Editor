@@ -70,6 +70,9 @@ public class PGCTerrain : MonoBehaviour
     {
         if(isRandom)
         {
+            updateValues();
+            _currentTerrainData.heightmapResolution = _width + 1;
+            _currentTerrainData.size = new Vector3(_width, _depth, heightCopy);
             _currentTerrainData.SetHeights(0, 0, GenerateRandomHeights());
         }
         else
@@ -110,7 +113,7 @@ public class PGCTerrain : MonoBehaviour
         {
             return Mathf.Cos(xCoord) * Mathf.Cos(yCoord);
         }
-        else//default perlin
+        else //if (currentString.Equals("Perlin") )
         {
             return Mathf.PerlinNoise(xCoord, yCoord);
         }
@@ -133,10 +136,10 @@ public class PGCTerrain : MonoBehaviour
 
     float CalculateRandomHeight(int x, int y)
     {
-        float xCoord = (float)x / _width * frequency;
-        float yCoord = (float)y / heightCopy * frequency;
+        float xCoord = (float)UnityEngine.Random.Range(0f, randomHeightRange) / _width * x;
+        float yCoord = (float)UnityEngine.Random.Range(0f, randomHeightRange) / heightCopy * y;
 
-        return UnityEngine.Random.Range(0f, randomHeightRange*( xCoord + yCoord ));
+        return Mathf.Sin(xCoord) * Mathf.Sin(yCoord);
     }
 
     void updateValues()

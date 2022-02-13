@@ -50,8 +50,6 @@ public class PGCTerrainEditor : Editor
             EditorGUILayout.IntSlider(SizeOfTerrain, 0, 5);
             currentValue = CalculateDimensions(SizeOfTerrain.intValue);
             EditorGUILayout.LabelField("Size of terrain HxW: " + currentValue + "x" + currentValue);
-
-
             EditorGUILayout.Space();
 
             EditorGUILayout.Slider(Scale, -100f, 100f);
@@ -66,7 +64,9 @@ public class PGCTerrainEditor : Editor
             EditorGUILayout.LabelField("Which algorithm to use for the terrain");
             EditorGUILayout.Space();
 
-            if (GUILayout.Button("Run Changes"))
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
+            if (GUILayout.Button("Apply Changes"))
             {
                 terrain.GenerateTerrainData(false);
             }
@@ -76,9 +76,16 @@ public class PGCTerrainEditor : Editor
 
         if (showRandom)
         {
-            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            EditorGUILayout.IntSlider(SizeOfTerrain, 0, 5);
+            currentValue = CalculateDimensions(SizeOfTerrain.intValue);
+            EditorGUILayout.LabelField("Size of terrain HxW: " + currentValue + "x" + currentValue);
+            EditorGUILayout.Space();
+
             GUILayout.Label("Set Heights Between Random Values", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(randomHeightRange);
+
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
             if (GUILayout.Button("Random Heights"))
             {
                 terrain.GenerateTerrainData(true);
