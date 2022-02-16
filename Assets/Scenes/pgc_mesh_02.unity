@@ -156,10 +156,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _size: 3
   _width: 128
-  _depth: 10
-  frequency: 10
+  _depth: 20
+  frequency: 20
   SelectAlgorithm: 2
-  randomHeightRange: 10
+  randomHeightRange: 5
 --- !u!154 &649111870
 TerrainCollider:
   m_ObjectHideFlags: 0

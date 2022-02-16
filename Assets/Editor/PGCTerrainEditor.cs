@@ -25,6 +25,7 @@ public class PGCTerrainEditor : Editor
     private string currentValue;
     private bool showRandom = false;
     private bool showCustom = false;
+    private float _customWidth = 12f;
 
     void OnEnable()
     {
@@ -47,22 +48,22 @@ public class PGCTerrainEditor : Editor
 
         if (showCustom)
         {
-            EditorGUILayout.IntSlider(SizeOfTerrain, 0, 5);
+            EditorGUILayout.IntSlider(SizeOfTerrain, 0, 5, new GUIContent("Size of Terrain", "Size of terrain"));
             currentValue = CalculateDimensions(SizeOfTerrain.intValue);
             EditorGUILayout.LabelField("Size of terrain HxW: " + currentValue + "x" + currentValue);
-            EditorGUILayout.Space();
+            EditorGUILayout.Space(_customWidth);
 
-            EditorGUILayout.Slider(Scale, -100f, 100f);
-            EditorGUILayout.LabelField("Frequency of Terrain");
-            EditorGUILayout.Space();
+            EditorGUILayout.Slider(Scale, -100f, 100f, new GUIContent("Frequency", "Frequency of terrain"));
+            //EditorGUILayout.LabelField("Frequency of Terrain");
+            EditorGUILayout.Space(_customWidth);
 
-            EditorGUILayout.IntSlider(Depth, -100, 100);
-            EditorGUILayout.LabelField("Depth of Terrain");
-            EditorGUILayout.Space();
+            EditorGUILayout.IntSlider(Depth, -100, 100, new GUIContent("Depth", "Depth of terrain"));
+            //EditorGUILayout.LabelField("Depth of Terrain");
+            EditorGUILayout.Space(_customWidth);
 
-            EditorGUILayout.PropertyField(SelectAlgorithm);
-            EditorGUILayout.LabelField("Which algorithm to use for the terrain");
-            EditorGUILayout.Space();
+            EditorGUILayout.PropertyField(SelectAlgorithm, new GUIContent("Select Algorithm", "Algorithm to use on terrain"));
+            //EditorGUILayout.LabelField("Which algorithm to use for the terrain");
+            EditorGUILayout.Space(_customWidth);
 
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
@@ -76,17 +77,17 @@ public class PGCTerrainEditor : Editor
 
         if (showRandom)
         {
-            EditorGUILayout.IntSlider(SizeOfTerrain, 0, 5);
+            EditorGUILayout.IntSlider(SizeOfTerrain, 0, 5, new GUIContent("Size of Terrain", "Size of terrain"));
             currentValue = CalculateDimensions(SizeOfTerrain.intValue);
             EditorGUILayout.LabelField("Size of terrain HxW: " + currentValue + "x" + currentValue);
-            EditorGUILayout.Space();
+            EditorGUILayout.Space(_customWidth);
 
-            GUILayout.Label("Set Heights Between Random Values", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(randomHeightRange);
+            EditorGUILayout.PropertyField(randomHeightRange, new GUIContent("Max height range", "Highest points to be made in terrain"));
+            //GUILayout.Label("Set Heights Between Random Values", EditorStyles.boldLabel);
 
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
-            if (GUILayout.Button("Random Heights"))
+            if (GUILayout.Button("Apply Changes"))
             {
                 terrain.GenerateTerrainData(true);
             }
